@@ -67,7 +67,6 @@
       }
    },
    "version" : "0.01",
-   "x_authority" : "cpan:WANIJI",
    "x_contributors" : [
       "Makoto Sasaki <wanigoya@gmail.com>"
    ]
