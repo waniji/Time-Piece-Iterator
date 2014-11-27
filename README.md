@@ -1,6 +1,6 @@
 # NAME
 
-Time::Piece::Iterator - It's new $module
+Time::Piece::Iterator - Iterate through dates in a range.
 
 # SYNOPSIS
 
@@ -8,21 +8,38 @@ Time::Piece::Iterator - It's new $module
     use Time::Piece::Iterator;
 
     my $iterator = Time::Piece::Iterator->new(
-        from => localtime->strptime('20140101', '%Y%m%d'),
-        to   => localtime->strptime('20140105', '%Y%m%d'),
+        from => localtime->strptime('2014/01/01', '%Y/%m/%d'),
+        to   => localtime->strptime('2014/01/05', '%Y/%m/%d'),
     );
 
     while( my $date = $iterator->next ) {
         print $date->ymd, "\n";
     }
 
-# DESCRIPTION
+# METHODS
 
 ## new
 
+    my $iterator = Time::Piece::Iterator->new(
+        from => localtime->strptime('2014/01/01', '%Y/%m/%d'),
+        to   => localtime->strptime('2014/01/05', '%Y/%m/%d'),
+    );
+
+Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iterator) object. `from` and `to` must be [Time::Piece](https://metacpan.org/pod/Time::Piece) object.
+
 ## next
 
+    while( my $date = $iterator->next ) {
+        print $date->ymd, "\n";
+    }
+
+Returns a [Time::Piece](https://metacpan.org/pod/Time::Piece) object with the next date. If iteration process is finished, it returns `undef`.
+
 ## reset
+
+    $iterator->reset;
+
+Resets the iterator so that the next call to `next()` returns the first date.
 
 # LICENSE
 

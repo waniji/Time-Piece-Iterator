@@ -1,5 +1,5 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "Iterate through dates in a range.",
    "author" : [
       "Makoto Sasaki < wanigoya@gmail.com >"
    ],

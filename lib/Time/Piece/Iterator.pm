@@ -55,7 +55,7 @@ __END__
 
 =head1 NAME
 
-Time::Piece::Iterator - It's new $module
+Time::Piece::Iterator - Iterate through dates in a range.
 
 =head1 SYNOPSIS
 
@@ -63,21 +63,39 @@ Time::Piece::Iterator - It's new $module
     use Time::Piece::Iterator;
 
     my $iterator = Time::Piece::Iterator->new(
-        from => localtime->strptime('20140101', '%Y%m%d'),
-        to   => localtime->strptime('20140105', '%Y%m%d'),
+        from => localtime->strptime('2014/01/01', '%Y/%m/%d'),
+        to   => localtime->strptime('2014/01/05', '%Y/%m/%d'),
     );
 
     while( my $date = $iterator->next ) {
         print $date->ymd, "\n";
     }
 
-=head1 DESCRIPTION
+=head1 METHODS
 
 =head2 new
 
+    my $iterator = Time::Piece::Iterator->new(
+        from => localtime->strptime('2014/01/01', '%Y/%m/%d'),
+        to   => localtime->strptime('2014/01/05', '%Y/%m/%d'),
+    );
+
+Creates a new L<Time::Piece::Iterator> object. C<from> and C<to> must be L<Time::Piece> object.
+
 =head2 next
 
+
+    while( my $date = $iterator->next ) {
+        print $date->ymd, "\n";
+    }
+
+Returns a L<Time::Piece> object with the next date. If iteration process is finished, it returns C<undef>.
+
 =head2 reset
+
+    $iterator->reset;
+
+Resets the iterator so that the next call to C<next()> returns the first date.
 
 =head1 LICENSE
 
