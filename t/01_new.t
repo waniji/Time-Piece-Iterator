@@ -9,47 +9,47 @@ dies_ok {
         from => '20140101',
         to   => localtime->strptime('20140105', '%Y%m%d'),
     );
-}, 'fromがTime::Pieceオブジェクトではない場合は例外を投げる';
+} "'from' is not a Time::Piece object";
 
 dies_ok {
     Time::Piece::Iterator->new(
         from => localtime->strptime('20140101', '%Y%m%d'),
         to   => '20140105',
     );
-}, 'toがTime::Pieceオブジェクトではない場合は例外を投げる';
+} "'to' is not a Time::Piece object";
 
 dies_ok {
     Time::Piece::Iterator->new(
         to   => localtime->strptime('20140105', '%Y%m%d'),
     );
-}, 'fromが指定されていない場合は例外を投げる';
+} "'from' is required";
 
 dies_ok {
     Time::Piece::Iterator->new(
         from => localtime->strptime('20140101', '%Y%m%d'),
     );
-}, 'toが指定されていない場合は例外を投げる';
+} "'to' is required";
 
 dies_ok {
     Time::Piece::Iterator->new(
         from => localtime->strptime('20140105', '%Y%m%d'),
         to   => localtime->strptime('20140101', '%Y%m%d'),
     );
-}, 'fromがtoより未来である場合は例外を投げる';
+} "'from' is a future date than 'to'";
 
 lives_ok {
     Time::Piece::Iterator->new(
         from => localtime->strptime('20140101', '%Y%m%d'),
         to   => localtime->strptime('20140101', '%Y%m%d'),
     );
-}, 'fromとtoが同日';
+} "'from' and 'to' are the same date";
 
 lives_ok {
     Time::Piece::Iterator->new(
         from => localtime->strptime('20140101', '%Y%m%d'),
         to   => localtime->strptime('20140105', '%Y%m%d'),
     );
-}, 'fromとtoが正常値';
+} "'from' is a past date than 'to'";
 
 done_testing;
 

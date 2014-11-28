@@ -16,6 +16,11 @@ my $iterator = Time::Piece::Iterator->new(
 );
 
 while( my $date = $iterator->next ) {
+}
+
+$iterator->reset;
+
+while( my $date = $iterator->next ) {
     is( ref $date, "Time::Piece", "date is a Time::Piece object");
     my $expect_date = shift @expect_dates;
     is(  $date->ymd, $expect_date, "date is $expect_date");
