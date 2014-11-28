@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/waniji/Time-Piece-Iterator.svg?branch=master)](https://travis-ci.org/waniji/Time-Piece-Iterator)
+[![Build Status](https://travis-ci.org/waniji/Time-Piece-Iterator.svg?branch=master)](https://travis-ci.org/waniji/Time-Piece-Iterator) [![Coverage Status](https://img.shields.io/coveralls/waniji/Time-Piece-Iterator/master.svg)](https://coveralls.io/r/waniji/Time-Piece-Iterator?branch=master)
 # NAME
 
 Time::Piece::Iterator - Iterate through dates in a range.

@@ -1,5 +1,5 @@
 name = "Time-Piece-Iterator"
-badges = ["travis"]
+badges = ["travis","coveralls"]
 module_maker="ModuleBuildTiny"
 
 [release]
