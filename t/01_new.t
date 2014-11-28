@@ -30,7 +30,7 @@ dies_ok {
     );
 } "'to' is required";
 
-dies_ok {
+lives_ok {
     Time::Piece::Iterator->new(
         from => localtime->strptime('20140105', '%Y%m%d'),
         to   => localtime->strptime('20140101', '%Y%m%d'),

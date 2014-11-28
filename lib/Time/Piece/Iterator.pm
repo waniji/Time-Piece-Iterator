@@ -19,26 +19,23 @@ sub new {
         }
     }
 
-    if ( $args{from} > $args{to} ) {
-        die "'from' must be a 'to' the same day or the past.";
-    }
-
     bless {
         from => $args{from},
         to => $args{to},
         now => $args{from},
+        sign => ( $args{from} > $args{to} ? -1 : 1 ),
     }, $class;
 }
 
 sub next {
     my $self = shift;
 
-    if( $self->{now} > $self->{to} ) {
+    if ($self->_is_finished) {
         return;
     }
 
     my $date = $self->{now};
-    $self->{now} += ONE_DAY;
+    $self->{now} += ( $self->{sign} * ONE_DAY );
 
     return $date;
 }
@@ -46,6 +43,22 @@ sub next {
 sub reset {
     my $self = shift;
     $self->{now} = $self->{from};
+}
+
+sub _is_finished {
+    my $self = shift;
+
+    if( $self->{sign} > 0 ) {
+        if( $self->{now} > $self->{to} ) {
+            return 1;
+        }
+    } else {
+        if( $self->{to} > $self->{now} ) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 1;
