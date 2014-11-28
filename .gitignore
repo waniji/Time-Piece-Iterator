@@ -28,3 +28,5 @@ cover_db/
 MYMETA.*
 
 /Time-Piece-Iterator-*
+
+.perl-version
