@@ -2,6 +2,10 @@ Revision history for Perl extension Time-Piece-Iterator
 
 {{$NEXT}}
 
+0.02 2014-11-30T14:52:50Z
+
+    - Implemented reverse iterator
+
 0.01 2014-11-28T05:17:26Z
 
     - original version
