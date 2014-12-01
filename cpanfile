@@ -1,5 +1,5 @@
 requires 'perl', '5.008001';
-requires 'Time::Piece';
+requires 'Time::Piece', '1.20';
 requires 'Time::Seconds';
 
 on 'test' => sub {
