@@ -22,7 +22,7 @@ sub new {
     bless {
         from => $args{from},
         to => $args{to},
-        now => $args{from},
+        next => $args{from},
         sign => ( $args{from} > $args{to} ? -1 : 1 ),
     }, $class;
 }
@@ -30,35 +30,27 @@ sub new {
 sub next {
     my $self = shift;
 
-    if ($self->_is_finished) {
-        return;
-    }
+    return if $self->_iterate_is_finished;
 
-    my $date = $self->{now};
-    $self->{now} += ( $self->{sign} * ONE_DAY );
+    my $date = $self->{next};
+    $self->{next} += ( $self->{sign} * ONE_DAY );
 
     return $date;
 }
 
 sub reset {
     my $self = shift;
-    $self->{now} = $self->{from};
+    $self->{next} = $self->{from};
 }
 
-sub _is_finished {
+sub _iterate_is_finished {
     my $self = shift;
 
     if( $self->{sign} > 0 ) {
-        if( $self->{now} > $self->{to} ) {
-            return 1;
-        }
+        return $self->{next} > $self->{to};
     } else {
-        if( $self->{to} > $self->{now} ) {
-            return 1;
-        }
+        return $self->{to} > $self->{next};
     }
-
-    return 0;
 }
 
 1;
