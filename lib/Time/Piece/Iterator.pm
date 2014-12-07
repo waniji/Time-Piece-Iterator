@@ -19,11 +19,21 @@ sub new {
         }
     }
 
+    if(!exists $args{iterating_units}){
+        die "'iterating_units' is required.";
+    }
+
+    my $next_value_method = $class->can("_next_$args{iterating_units}");
+    unless( defined $next_value_method ) {
+        die "Specified 'iterating_units' is unusable.";
+    }
+
     bless {
         from => $args{from},
         to => $args{to},
         next => $args{from},
         sign => ( $args{from} > $args{to} ? -1 : 1 ),
+        next_value_method => $next_value_method,
     }, $class;
 }
 
@@ -33,7 +43,7 @@ sub next {
     return if $self->_iterate_is_finished;
 
     my $date = $self->{next};
-    $self->{next} += ( $self->{sign} * ONE_DAY );
+    $self->{next} = $self->_next_value->( $self->{next}, $self->{sign} );
 
     return $date;
 }
@@ -42,6 +52,9 @@ sub reset {
     my $self = shift;
     $self->{next} = $self->{from};
 }
+
+sub _next_value  { $_[0]->{next_value_method} }
+sub _next_day    { $_[0] + ( $_[1] * ONE_DAY    ) }
 
 sub _iterate_is_finished {
     my $self = shift;
