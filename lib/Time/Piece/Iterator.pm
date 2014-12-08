@@ -58,6 +58,7 @@ sub _next_second { $_[0] + ( $_[1] * 1          ) }
 sub _next_minute { $_[0] + ( $_[1] * ONE_MINUTE ) }
 sub _next_hour   { $_[0] + ( $_[1] * ONE_HOUR   ) }
 sub _next_day    { $_[0] + ( $_[1] * ONE_DAY    ) }
+sub _next_week   { $_[0] + ( $_[1] * ONE_WEEK   ) }
 
 sub _iterate_is_finished {
     my $self = shift;
