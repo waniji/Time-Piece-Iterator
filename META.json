@@ -1,5 +1,5 @@
 {
-   "abstract" : "Iterate through dates in a range.",
+   "abstract" : "Iterate through datetimes in a range.",
    "author" : [
       "Makoto Sasaki < wanigoya@gmail.com >"
    ],

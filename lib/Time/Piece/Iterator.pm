@@ -79,7 +79,7 @@ __END__
 
 =head1 NAME
 
-Time::Piece::Iterator - Iterate through dates in a range.
+Time::Piece::Iterator - Iterate through datetimes in a range.
 
 =head1 SYNOPSIS
 
@@ -89,6 +89,7 @@ Time::Piece::Iterator - Iterate through dates in a range.
     my $iterator = Time::Piece::Iterator->new(
         from => localtime->strptime('2014/01/01', '%Y/%m/%d'),
         to   => localtime->strptime('2014/01/05', '%Y/%m/%d'),
+        iterating_units => 'day',
     );
 
     while( my $date = $iterator->next ) {
@@ -102,9 +103,11 @@ Time::Piece::Iterator - Iterate through dates in a range.
     my $iterator = Time::Piece::Iterator->new(
         from => localtime->strptime('2014/01/01', '%Y/%m/%d'),
         to   => localtime->strptime('2014/01/05', '%Y/%m/%d'),
+        iterating_units => 'day',
     );
 
-Creates a new L<Time::Piece::Iterator> object. C<from> and C<to> must be L<Time::Piece> object.
+Creates a new L<Time::Piece::Iterator> object. C<from> and C<to> must be L<Time::Piece> object. C<iterating_units> can be used second/minute/hour/day/week/month/year.
+
 
 =head2 next
 
@@ -113,13 +116,13 @@ Creates a new L<Time::Piece::Iterator> object. C<from> and C<to> must be L<Time:
         print $date->ymd, "\n";
     }
 
-Returns a L<Time::Piece> object with the next date. If iteration process is finished, it returns C<undef>.
+Returns a L<Time::Piece> object with the next datetime. If iteration process is finished, it returns C<undef>.
 
 =head2 reset
 
     $iterator->reset;
 
-Resets the iterator so that the next call to C<next()> returns the first date.
+Resets the iterator so that the next call to C<next()> returns the first datetime.
 
 =head1 LICENSE
 

@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/waniji/Time-Piece-Iterator.svg?branch=master)](https://travis-ci.org/waniji/Time-Piece-Iterator) [![Coverage Status](https://img.shields.io/coveralls/waniji/Time-Piece-Iterator/master.svg)](https://coveralls.io/r/waniji/Time-Piece-Iterator?branch=master)
 # NAME
 
-Time::Piece::Iterator - Iterate through dates in a range.
+Time::Piece::Iterator - Iterate through datetimes in a range.
 
 # SYNOPSIS
 
@@ -11,6 +11,7 @@ Time::Piece::Iterator - Iterate through dates in a range.
     my $iterator = Time::Piece::Iterator->new(
         from => localtime->strptime('2014/01/01', '%Y/%m/%d'),
         to   => localtime->strptime('2014/01/05', '%Y/%m/%d'),
+        iterating_units => 'day',
     );
 
     while( my $date = $iterator->next ) {
@@ -24,9 +25,10 @@ Time::Piece::Iterator - Iterate through dates in a range.
     my $iterator = Time::Piece::Iterator->new(
         from => localtime->strptime('2014/01/01', '%Y/%m/%d'),
         to   => localtime->strptime('2014/01/05', '%Y/%m/%d'),
+        iterating_units => 'day',
     );
 
-Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iterator) object. `from` and `to` must be [Time::Piece](https://metacpan.org/pod/Time::Piece) object.
+Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iterator) object. `from` and `to` must be [Time::Piece](https://metacpan.org/pod/Time::Piece) object. `iterating_units` can be used second/minute/hour/day/week/month/year.
 
 ## next
 
@@ -34,13 +36,13 @@ Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iter
         print $date->ymd, "\n";
     }
 
-Returns a [Time::Piece](https://metacpan.org/pod/Time::Piece) object with the next date. If iteration process is finished, it returns `undef`.
+Returns a [Time::Piece](https://metacpan.org/pod/Time::Piece) object with the next datetime. If iteration process is finished, it returns `undef`.
 
 ## reset
 
     $iterator->reset;
 
-Resets the iterator so that the next call to `next()` returns the first date.
+Resets the iterator so that the next call to `next()` returns the first datetime.
 
 # LICENSE
 
