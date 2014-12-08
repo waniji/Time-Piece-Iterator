@@ -34,6 +34,21 @@ dies_ok {
     );
 } "'to' is required";
 
+dies_ok {
+    Time::Piece::Iterator->new(
+        from => localtime->strptime('20140101', '%Y%m%d'),
+        to   => localtime->strptime('20140105', '%Y%m%d'),
+    );
+} "'iterating_units' is required";
+
+dies_ok {
+    Time::Piece::Iterator->new(
+        from => localtime->strptime('20140101', '%Y%m%d'),
+        to   => localtime->strptime('20140105', '%Y%m%d'),
+        iterating_units => "unknown",
+    );
+} "Specified 'iterating_units' is unusable";
+
 lives_ok {
     Time::Piece::Iterator->new(
         from => localtime->strptime('20140105', '%Y%m%d'),
