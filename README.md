@@ -14,8 +14,8 @@ Time::Piece::Iterator - Iterate through datetimes in a range.
         iterating_units => 'day',
     );
 
-    while( my $date = $iterator->next ) {
-        print $date->ymd, "\n";
+    while( my $t = $iterator->next ) {
+        print $t->ymd, "\n";
     }
 
 # METHODS
@@ -32,8 +32,8 @@ Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iter
 
 ## next
 
-    while( my $date = $iterator->next ) {
-        print $date->ymd, "\n";
+    while( my $t = $iterator->next ) {
+        print $t->ymd, "\n";
     }
 
 Returns a [Time::Piece](https://metacpan.org/pod/Time::Piece) object with the next datetime. If iteration process is finished, it returns `undef`.

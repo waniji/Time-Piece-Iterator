@@ -42,10 +42,10 @@ sub next {
 
     return if $self->_iterate_is_finished;
 
-    my $date = $self->{next};
+    my $t = $self->{next};
     $self->{next} = $self->_next_value->( $self->{next}, $self->{sign} );
 
-    return $date;
+    return $t;
 }
 
 sub reset {
@@ -92,8 +92,8 @@ Time::Piece::Iterator - Iterate through datetimes in a range.
         iterating_units => 'day',
     );
 
-    while( my $date = $iterator->next ) {
-        print $date->ymd, "\n";
+    while( my $t = $iterator->next ) {
+        print $t->ymd, "\n";
     }
 
 =head1 METHODS
@@ -112,8 +112,8 @@ Creates a new L<Time::Piece::Iterator> object. C<from> and C<to> must be L<Time:
 =head2 next
 
 
-    while( my $date = $iterator->next ) {
-        print $date->ymd, "\n";
+    while( my $t = $iterator->next ) {
+        print $t->ymd, "\n";
     }
 
 Returns a L<Time::Piece> object with the next datetime. If iteration process is finished, it returns C<undef>.
