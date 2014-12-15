@@ -8,17 +8,25 @@ Time::Piece::Iterator - Iterate through datetimes in a range.
     use Time::Piece;
     use Time::Piece::Iterator;
 
-    my $iterator = Time::Piece::Iterator->new(
-        from => localtime->strptime('2014/01/01', '%Y/%m/%d'),
-        to   => localtime->strptime('2014/01/05', '%Y/%m/%d'),
-        iterating_units => 'day',
+    my $iterator = day_iterator(
+        localtime->strptime('2014/01/01', '%Y/%m/%d'),
+        localtime->strptime('2014/01/05', '%Y/%m/%d'),
     );
 
     while( my $t = $iterator->next ) {
         print $t->ymd, "\n";
     }
 
-# METHODS
+# CONSTRUCTORS
+
+## {second,minute,hour,day,week,month,year}\_iterator
+
+    my $iterator = day_iterator(
+        localtime->strptime('2014/01/01', '%Y/%m/%d'),
+        localtime->strptime('2014/01/05', '%Y/%m/%d'),
+    );
+
+Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iterator) object. Arguments must be [Time::Piece](https://metacpan.org/pod/Time::Piece) object.
 
 ## new
 
@@ -29,6 +37,8 @@ Time::Piece::Iterator - Iterate through datetimes in a range.
     );
 
 Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iterator) object. `from` and `to` must be [Time::Piece](https://metacpan.org/pod/Time::Piece) object. `iterating_units` can be used second/minute/hour/day/week/month/year.
+
+# METHODS
 
 ## next
 

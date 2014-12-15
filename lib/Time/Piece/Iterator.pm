@@ -97,17 +97,25 @@ Time::Piece::Iterator - Iterate through datetimes in a range.
     use Time::Piece;
     use Time::Piece::Iterator;
 
-    my $iterator = Time::Piece::Iterator->new(
-        from => localtime->strptime('2014/01/01', '%Y/%m/%d'),
-        to   => localtime->strptime('2014/01/05', '%Y/%m/%d'),
-        iterating_units => 'day',
+    my $iterator = day_iterator(
+        localtime->strptime('2014/01/01', '%Y/%m/%d'),
+        localtime->strptime('2014/01/05', '%Y/%m/%d'),
     );
 
     while( my $t = $iterator->next ) {
         print $t->ymd, "\n";
     }
 
-=head1 METHODS
+=head1 CONSTRUCTORS
+
+=head2 {second,minute,hour,day,week,month,year}_iterator
+
+    my $iterator = day_iterator(
+        localtime->strptime('2014/01/01', '%Y/%m/%d'),
+        localtime->strptime('2014/01/05', '%Y/%m/%d'),
+    );
+
+Creates a new L<Time::Piece::Iterator> object. Arguments must be L<Time::Piece> object.
 
 =head2 new
 
@@ -119,6 +127,7 @@ Time::Piece::Iterator - Iterate through datetimes in a range.
 
 Creates a new L<Time::Piece::Iterator> object. C<from> and C<to> must be L<Time::Piece> object. C<iterating_units> can be used second/minute/hour/day/week/month/year.
 
+=head1 METHODS
 
 =head2 next
 
