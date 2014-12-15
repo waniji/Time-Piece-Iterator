@@ -4,8 +4,19 @@ use strict;
 use warnings;
 use Time::Piece;
 use Time::Seconds;
+use Exporter 'import';
 
 our $VERSION = "0.03";
+our @EXPORT = map { $_.'_iterator' } qw/second minute hour day week month year/;
+
+# constructors
+sub second_iterator { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'second' ) }
+sub minute_iterator { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'minute' ) }
+sub hour_iterator   { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'hour'   ) }
+sub day_iterator    { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'day'    ) }
+sub week_iterator   { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'week'   ) }
+sub month_iterator  { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'month'  ) }
+sub year_iterator   { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'year'   ) }
 
 sub new {
     my ($class, %args) = @_;
