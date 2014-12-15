@@ -7,16 +7,17 @@ use Time::Seconds;
 use Exporter 'import';
 
 our $VERSION = "0.03";
-our @EXPORT = map { $_.'_iterator' } qw/second minute hour day week month year/;
+our @EXPORT = map { $_.'_iterator' } qw/second minute hour day week month year custom/;
 
 # constructors
-sub second_iterator { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'second' ) }
-sub minute_iterator { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'minute' ) }
-sub hour_iterator   { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'hour'   ) }
-sub day_iterator    { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'day'    ) }
-sub week_iterator   { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'week'   ) }
-sub month_iterator  { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'month'  ) }
-sub year_iterator   { __PACKAGE__->new( from => $_[0], to => $_[1], iterating_units => 'year'   ) }
+sub second_iterator { __PACKAGE__->new( from => $_[0], to => $_[1], iterate => 'second' ) }
+sub minute_iterator { __PACKAGE__->new( from => $_[0], to => $_[1], iterate => 'minute' ) }
+sub hour_iterator   { __PACKAGE__->new( from => $_[0], to => $_[1], iterate => 'hour'   ) }
+sub day_iterator    { __PACKAGE__->new( from => $_[0], to => $_[1], iterate => 'day'    ) }
+sub week_iterator   { __PACKAGE__->new( from => $_[0], to => $_[1], iterate => 'week'   ) }
+sub month_iterator  { __PACKAGE__->new( from => $_[0], to => $_[1], iterate => 'month'  ) }
+sub year_iterator   { __PACKAGE__->new( from => $_[0], to => $_[1], iterate => 'year'   ) }
+sub custom_iterator { __PACKAGE__->new( from => $_[0], to => $_[1], iterate => $_[2]    ) }
 
 sub new {
     my ($class, %args) = @_;
@@ -30,13 +31,16 @@ sub new {
         }
     }
 
-    if(!exists $args{iterating_units}){
-        die "'iterating_units' is required.";
+    if(!exists $args{iterate}){
+        die "'iterate' is required.";
     }
 
-    my $next_value_method = $class->can("_next_$args{iterating_units}");
-    unless( defined $next_value_method ) {
-        die "Specified 'iterating_units' is unusable.";
+    my $iterate = $args{iterate};
+    if( ref $iterate ne "CODE" ) {
+        $iterate = __PACKAGE__->can("_next_$args{iterate}");
+        unless( defined $iterate ) {
+            die "Specified 'iterate' is unusable.";
+        }
     }
 
     bless {
@@ -44,7 +48,7 @@ sub new {
         to => $args{to},
         next => $args{from},
         sign => ( $args{from} > $args{to} ? -1 : 1 ),
-        next_value_method => $next_value_method,
+        iterate => $iterate,
     }, $class;
 }
 
@@ -64,7 +68,8 @@ sub reset {
     $self->{next} = $self->{from};
 }
 
-sub _next_value  { $_[0]->{next_value_method} }
+sub _next_value  { $_[0]->{iterate} }
+
 sub _next_second { $_[0] + ( $_[1] * 1          ) }
 sub _next_minute { $_[0] + ( $_[1] * ONE_MINUTE ) }
 sub _next_hour   { $_[0] + ( $_[1] * ONE_HOUR   ) }
@@ -122,10 +127,10 @@ Creates a new L<Time::Piece::Iterator> object. Arguments must be L<Time::Piece> 
     my $iterator = Time::Piece::Iterator->new(
         from => localtime->strptime('2014/01/01', '%Y/%m/%d'),
         to   => localtime->strptime('2014/01/05', '%Y/%m/%d'),
-        iterating_units => 'day',
+        iterate => 'day',
     );
 
-Creates a new L<Time::Piece::Iterator> object. C<from> and C<to> must be L<Time::Piece> object. C<iterating_units> can be used second/minute/hour/day/week/month/year.
+Creates a new L<Time::Piece::Iterator> object. C<from> and C<to> must be L<Time::Piece> object. C<iterate> can be used second/minute/hour/day/week/month/year.
 
 =head1 METHODS
 
