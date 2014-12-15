@@ -33,10 +33,10 @@ Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iter
     my $iterator = Time::Piece::Iterator->new(
         from => localtime->strptime('2014/01/01', '%Y/%m/%d'),
         to   => localtime->strptime('2014/01/05', '%Y/%m/%d'),
-        iterating_units => 'day',
+        iterate => 'day',
     );
 
-Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iterator) object. `from` and `to` must be [Time::Piece](https://metacpan.org/pod/Time::Piece) object. `iterating_units` can be used second/minute/hour/day/week/month/year.
+Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iterator) object. `from` and `to` must be [Time::Piece](https://metacpan.org/pod/Time::Piece) object. `iterate` can be used second/minute/hour/day/week/month/year.
 
 # METHODS
 

@@ -14,7 +14,7 @@ subtest "'from' is a past date than 'to'" => sub {
     my $iterator = Time::Piece::Iterator->new(
         from => localtime->strptime('20140130', '%Y%m%d'),
         to   => localtime->strptime('20140202', '%Y%m%d'),
-        iterating_units => "day",
+        iterate => "day",
     );
 
     while( my $date = $iterator->next ) {
@@ -40,7 +40,7 @@ subtest "'from' is a future date than 'to'" => sub {
     my $iterator = Time::Piece::Iterator->new(
         from => localtime->strptime('20140202', '%Y%m%d'),
         to   => localtime->strptime('20140130', '%Y%m%d'),
-        iterating_units => "day",
+        iterate => "day",
     );
 
     while( my $date = $iterator->next ) {
