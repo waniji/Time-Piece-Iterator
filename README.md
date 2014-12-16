@@ -19,15 +19,6 @@ Time::Piece::Iterator - Iterate through datetimes in a range.
 
 # CONSTRUCTORS
 
-## {second,minute,hour,day,week,month,year}\_iterator
-
-    my $iterator = day_iterator(
-        localtime->strptime('2014/01/01', '%Y/%m/%d'),
-        localtime->strptime('2014/01/05', '%Y/%m/%d'),
-    );
-
-Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iterator) object. Arguments must be [Time::Piece](https://metacpan.org/pod/Time::Piece) object.
-
 ## new
 
     my $iterator = Time::Piece::Iterator->new(
@@ -37,6 +28,28 @@ Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iter
     );
 
 Creates a new [Time::Piece::Iterator](https://metacpan.org/pod/Time::Piece::Iterator) object. `from` and `to` must be [Time::Piece](https://metacpan.org/pod/Time::Piece) object. `iterate` can be used second/minute/hour/day/week/month/year.
+
+## {second,minute,hour,day,week,month,year}\_iterator
+
+    my $iterator = day_iterator(
+        localtime->strptime('2014/01/01', '%Y/%m/%d'),
+        localtime->strptime('2014/01/05', '%Y/%m/%d'),
+    );
+
+These constructors are syntax sugar for `new()`. Arguments must be [Time::Piece](https://metacpan.org/pod/Time::Piece) object.
+
+## custom\_iterator
+
+    my $iterator = custom_iterator(
+        localtime->strptime('2014/01/01', '%Y/%m/%d'),
+        localtime->strptime('2014/01/05', '%Y/%m/%d'),
+        sub {
+            my ($t, $sign) = @_;
+            return $t + ( ONE_WEEK * 2 * $sign );
+        },
+    );
+
+If you want to custom iterating unit, you will use this constructor.
 
 # METHODS
 

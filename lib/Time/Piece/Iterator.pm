@@ -113,15 +113,6 @@ Time::Piece::Iterator - Iterate through datetimes in a range.
 
 =head1 CONSTRUCTORS
 
-=head2 {second,minute,hour,day,week,month,year}_iterator
-
-    my $iterator = day_iterator(
-        localtime->strptime('2014/01/01', '%Y/%m/%d'),
-        localtime->strptime('2014/01/05', '%Y/%m/%d'),
-    );
-
-Creates a new L<Time::Piece::Iterator> object. Arguments must be L<Time::Piece> object.
-
 =head2 new
 
     my $iterator = Time::Piece::Iterator->new(
@@ -132,10 +123,31 @@ Creates a new L<Time::Piece::Iterator> object. Arguments must be L<Time::Piece> 
 
 Creates a new L<Time::Piece::Iterator> object. C<from> and C<to> must be L<Time::Piece> object. C<iterate> can be used second/minute/hour/day/week/month/year.
 
+=head2 {second,minute,hour,day,week,month,year}_iterator
+
+    my $iterator = day_iterator(
+        localtime->strptime('2014/01/01', '%Y/%m/%d'),
+        localtime->strptime('2014/01/05', '%Y/%m/%d'),
+    );
+
+These constructors are syntax sugar for C<new()>. Arguments must be L<Time::Piece> object.
+
+=head2 custom_iterator
+
+    my $iterator = custom_iterator(
+        localtime->strptime('2014/01/01', '%Y/%m/%d'),
+        localtime->strptime('2014/01/05', '%Y/%m/%d'),
+        sub {
+            my ($t, $sign) = @_;
+            return $t + ( ONE_WEEK * 2 * $sign );
+        },
+    );
+
+If you want to custom iterating unit, you will use this constructor.
+
 =head1 METHODS
 
 =head2 next
-
 
     while( my $t = $iterator->next ) {
         print $t->ymd, "\n";
