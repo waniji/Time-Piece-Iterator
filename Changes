@@ -2,6 +2,11 @@ Revision history for Perl extension Time-Piece-Iterator
 
 {{$NEXT}}
 
+0.04 2014-12-16T15:28:04Z
+
+    - Implement custom iterator
+    - Add constructors
+
 0.03 2014-12-08T14:56:22Z
 
     - Modified to specify an iterating units

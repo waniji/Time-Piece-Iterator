@@ -6,7 +6,7 @@ use Time::Piece;
 use Time::Seconds;
 use Exporter 'import';
 
-our $VERSION = "0.03";
+our $VERSION = "0.04";
 our @EXPORT = map { $_.'_iterator' } qw/second minute hour day week month year custom/;
 
 # constructors
